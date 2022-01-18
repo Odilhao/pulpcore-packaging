@@ -5,18 +5,35 @@
 %global pypi_name aiohttp
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        3.7.4
-Release:        4%{?dist}
+Version:        3.7.4.post0
+Release:        1%{?dist}
 Summary:        Async http client/server framework (asyncio)
 
 License:        Apache 2
 URL:            https://github.com/aio-libs/aiohttp
 Source0:        https://files.pythonhosted.org/packages/source/a/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-Patch0:         0001-allow-larger-headers.patch
-Patch1:         0002-Adds-Secure-Proxy-support.patch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-aiodns
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-async-generator
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-async-timeout < 4.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-async-timeout >= 3.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-attrs >= 17.3.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-brotlipy
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-cchardet
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-chardet < 5.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-chardet >= 2.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-gunicorn
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-idna-ssl >= 1.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-multidict < 7.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-multidict >= 4.5
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-timeout
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-xdist
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-typing-extensions >= 3.6.5
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-yarl < 2.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-yarl >= 1.0
 
 
 %description
@@ -26,10 +43,13 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-aiodns
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-async-timeout < 4.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-async-timeout >= 3.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-attrs >= 17.3.0
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-chardet < 4.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-brotlipy
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-cchardet
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-chardet < 5.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-chardet >= 2.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-idna-ssl >= 1.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-multidict < 7.0
@@ -38,8 +58,6 @@ Requires:       %{?scl_prefix}python%{python3_pkgversion}-typing-extensions >= 3
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-yarl < 2.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-yarl >= 1.0
 
-# aiohttp depends on stdlib's mimetypes which reads /etc/mime.types
-Requires:       /etc/mime.types
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %{summary}
@@ -48,7 +66,7 @@ Requires:       /etc/mime.types
 %prep
 %{?scl:scl enable %{scl} - << \EOF}
 set -ex
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 %{?scl:EOF}
@@ -76,6 +94,9 @@ set -ex
 
 
 %changelog
+* Tue Jan 18 2022 Odilon Sousa 3.7.4.post0-1
+- Update to 3.7.4.post0
+
 * Wed Sep 29 2021 Brian Bouterse <bmbouter@redhat.com> 3.7.4-4
 - Adds patch to enable secure proxy support
 
