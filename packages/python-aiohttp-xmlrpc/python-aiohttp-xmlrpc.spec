@@ -5,17 +5,22 @@
 %global pypi_name aiohttp-xmlrpc
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        1.3.2
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        aiohttp XML-RPC server handler and client
 
 License:        MIT
-URL:            https://github.com/mosquito/aiohttp-xmlrpc
+URL:            None
 Source0:        https://files.pythonhosted.org/packages/source/a/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-aiohttp
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-lxml
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-cov
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-xmltodict
 
 
 %description
@@ -27,6 +32,9 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-aiohttp
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-lxml
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-cov
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-xmltodict
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
@@ -57,12 +65,16 @@ set -ex
 
 
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
+%license LICENSE
 %doc README.rst
 %{python3_sitelib}/aiohttp_xmlrpc
 %{python3_sitelib}/aiohttp_xmlrpc-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Tue Jan 18 2022 Odilon Sousa 1.5.0-1
+- Update to 1.5.0
+
 * Wed Nov 03 2021 Odilon Sousa <osousa@redhat.com> - 1.3.2-1
 - Release python-aiohttp-xmlrpc 1.3.2
 
