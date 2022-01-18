@@ -5,8 +5,8 @@
 %global pypi_name pyparsing
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        2.4.7
-Release:        2%{?dist}
+Version:        3.0.6
+Release:        1%{?dist}
 Summary:        Python parsing module
 
 License:        MIT License
@@ -15,6 +15,8 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-jinja2
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-railroad-diagrams
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
 
@@ -25,6 +27,8 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-jinja2
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-railroad-diagrams
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
@@ -56,13 +60,15 @@ set -ex
 
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %license LICENSE
-%doc README.rst examples/0README.html
-%{python3_sitelib}/__pycache__/%{pypi_name}.*
-%{python3_sitelib}/%{pypi_name}.py
+%doc README.rst examples/0README.html tests/README.md
+%{python3_sitelib}/%{pypi_name}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Tue Jan 18 2022 Odilon Sousa 3.0.6-1
+- Update to 3.0.6
+
 * Mon Sep 06 2021 Evgeni Golov - 2.4.7-2
 - Build against Python 3.8
 
