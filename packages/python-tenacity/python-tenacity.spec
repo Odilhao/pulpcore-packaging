@@ -5,8 +5,8 @@
 %global pypi_name tenacity
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        7.0.0
-Release:        2%{?dist}
+Version:        8.0.1
+Release:        1%{?dist}
 Summary:        Retry code until it succeeds
 
 License:        Apache 2.0
@@ -15,9 +15,10 @@ Source0:        https://files.pythonhosted.org/packages/source/t/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-reno
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools-scm
-BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-six >= 1.9.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-tornado >= 4.5
 
 
 %description
@@ -27,7 +28,6 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-six >= 1.9.0
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-six >= 1.9.0
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
@@ -65,6 +65,9 @@ set -ex
 
 
 %changelog
+* Tue Jan 18 2022 Odilon Sousa 8.0.1-1
+- Update to 8.0.1
+
 * Wed Sep 08 2021 Evgeni Golov - 7.0.0-2
 - Build against Python 3.8
 
