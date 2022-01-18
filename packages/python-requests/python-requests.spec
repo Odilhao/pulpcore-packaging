@@ -5,8 +5,8 @@
 %global pypi_name requests
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        2.26.0
-Release:        3%{?dist}
+Version:        2.27.1
+Release:        1%{?dist}
 Summary:        Python HTTP for Humans
 
 License:        Apache 2.0
@@ -15,7 +15,30 @@ Source0:        https://files.pythonhosted.org/packages/source/r/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildConflicts: %{?scl_prefix}python%{python3_pkgversion}-PySocks = 1.5.7
+BuildConflicts: %{?scl_prefix}python%{python3_pkgversion}-PySocks = 1.5.7
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-PySocks >= 1.5.6
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-PySocks >= 1.5.6
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-certifi >= 2017.4.17
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-chardet < 5
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-chardet < 5
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-chardet >= 3.0.2
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-chardet >= 3.0.2
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-charset-normalizer >= 2.0.0
+Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-charset-normalizer >= 2.1
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-idna < 3
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-idna < 4
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-idna >= 2.5
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-idna >= 2.5
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest >= 3
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-cov
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-httpbin = 0.0.7
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-mock
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-xdist
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-urllib3 < 1.27
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-urllib3 >= 1.21.1
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-win-inet-pton
 
 
 %description
@@ -25,15 +48,22 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-PySocks = 1.5.7
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-PySocks >= 1.5.6
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-certifi >= 2017.4.17
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-charset-normalizer < 3.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-chardet < 5
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-chardet < 5
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-chardet >= 3.0.2
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-chardet >= 3.0.2
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-charset-normalizer >= 2.0.0
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-cryptography >= 1.3.4
+Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-charset-normalizer >= 2.1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-idna < 3
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-idna < 4
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-idna >= 2.5
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyOpenSSL >= 0.14
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-idna >= 2.5
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-urllib3 < 1.27
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-urllib3 >= 1.21.1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-win-inet-pton
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
@@ -71,6 +101,9 @@ set -ex
 
 
 %changelog
+* Tue Jan 18 2022 Odilon Sousa 2.27.1-1
+- Update to 2.27.1
+
 * Wed Nov 17 2021 Evgeni Golov - 2.26.0-3
 - Use charset-normalizer instead of chardet
 
