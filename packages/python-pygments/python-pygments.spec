@@ -6,8 +6,8 @@
 %global srcname pygments
 
 Name:           %{?scl_prefix}python-%{srcname}
-Version:        2.10.0
-Release:        2%{?dist}
+Version:        2.11.2
+Release:        1%{?dist}
 Summary:        Pygments is a syntax highlighting package written in Python
 
 License:        BSD License
@@ -16,8 +16,6 @@ Source0:        https://files.pythonhosted.org/packages/source/P/%{pypi_name}/%{
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
-
-BuildArch:      noarch
 
 
 %description
@@ -60,12 +58,15 @@ set -ex
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 %license LICENSE
 %doc README.rst
-%exclude %{_bindir}/pygmentize
-%{python3_sitelib}/pygments
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%{_bindir}/pygmentize
+%{python3_sitearch}/pygments
+%{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Tue Jan 18 2022 Odilon Sousa 2.11.2-1
+- Update to 2.11.2
+
 * Thu Nov 25 2021 Odilon Sousa <osousa@redhat.com> - 2.10.0-2
 - Release python-pygments 2.10.0
 
