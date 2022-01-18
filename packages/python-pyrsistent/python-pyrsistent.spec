@@ -5,7 +5,7 @@
 %global pypi_name pyrsistent
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        0.18.0
+Version:        0.18.1
 Release:        1%{?dist}
 Summary:        Persistent/Functional/Immutable data structures
 
@@ -14,6 +14,8 @@ URL:            http://github.com/tobgu/pyrsistent/
 Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-hypothesis < 7
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest < 7
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
 
@@ -54,15 +56,18 @@ set -ex
 
 
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
+%license LICENSE.mit
 %doc README.rst
-%{python3_sitearch}/__pycache__/_pyrsistent_version.*
-%{python3_sitearch}/_pyrsistent_version.py
+%{python3_sitelib}/__pycache__/_pyrsistent_version.*
+%{python3_sitelib}/_pyrsistent_version.py
 %{python3_sitearch}/%{pypi_name}
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%{python3_sitearch}/pvectorc.cpython-3*-x86_64-linux-gnu.so
 
 
 %changelog
+* Tue Jan 18 2022 Odilon Sousa 0.18.1-1
+- Update to 0.18.1
+
 * Tue Nov 09 2021 Odilon Sousa <osousa@redhat.com> - 0.18.0-1
 - Release python-pyrsistent 0.18.0
 
