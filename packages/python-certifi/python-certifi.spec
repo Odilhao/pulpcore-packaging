@@ -5,19 +5,17 @@
 %global pypi_name certifi
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        2020.6.20
-Release:        2%{?dist}
+Version:        2021.10.8
+Release:        1%{?dist}
 Summary:        Python package for providing Mozilla's CA Bundle
 
 License:        MPL-2.0
 URL:            https://certifiio.readthedocs.io/en/latest/
 Source0:        https://files.pythonhosted.org/packages/source/c/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-Patch0:         certifi-2020.6.20-use-system-cert.patch
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
-BuildRequires:  ca-certificates
 
 
 %description
@@ -26,7 +24,6 @@ BuildRequires:  ca-certificates
 
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
-Requires:       ca-certificates
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
 
@@ -37,11 +34,9 @@ Requires:       ca-certificates
 %prep
 %{?scl:scl enable %{scl} - << \EOF}
 set -ex
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
-# Remove bundled Root Certificates collection
-rm -rf certifi/*.pem
 %{?scl:EOF}
 
 
@@ -67,6 +62,9 @@ set -ex
 
 
 %changelog
+* Tue Jan 18 2022 Odilon Sousa 2021.10.8-1
+- Update to 2021.10.8
+
 * Wed Sep 08 2021 Evgeni Golov - 2020.6.20-2
 - Build against Python 3.8
 
