@@ -6,11 +6,11 @@
 %global srcname gnupg
 
 Name:           %{?scl_prefix}python-%{srcname}
-Version:        0.4.7
-Release:        2%{?dist}
+Version:        0.4.8
+Release:        1%{?dist}
 Summary:        A wrapper for the Gnu Privacy Guard (GPG or GnuPG)
 
-License:        BSD-3-Clause
+License:        Copyright (C) 2008-2021 by Vinay Sajip. All Rights Reserved. See LICENSE.txt for license.
 URL:            https://docs.red-dove.com/python-gnupg/
 Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -60,10 +60,14 @@ set -ex
 %doc README.rst
 %{python3_sitelib}/__pycache__/gnupg.*
 %{python3_sitelib}/gnupg.py
+%{python3_sitelib}/%{pypi_name}
 %{python3_sitelib}/python_gnupg-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Tue Jan 18 2022 Odilon Sousa 0.4.8-1
+- Update to 0.4.8
+
 * Fri Sep 03 2021 Evgeni Golov - 0.4.7-2
 - Build against Python 3.8
 
