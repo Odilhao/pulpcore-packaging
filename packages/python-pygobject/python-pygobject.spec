@@ -6,7 +6,7 @@
 %global srcname pygobject
 
 Name:           %{?scl_prefix}python-%{srcname}
-Version:        3.40.1
+Version:        3.42.0
 Release:        1%{?dist}
 Summary:        Python bindings for GObject Introspection
 
@@ -18,8 +18,6 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pycairo >= 1.16.0
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
-BuildRequires:  cairo-gobject-devel
-BuildRequires:  gobject-introspection-devel
 
 %description
 %{summary}
@@ -28,7 +26,6 @@ BuildRequires:  gobject-introspection-devel
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-Provides:       %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name} = %{version}
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-pycairo >= 1.16.0
 
 
@@ -65,10 +62,11 @@ set -ex
 %{python3_sitearch}/gi
 %{python3_sitearch}/pygtkcompat
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%{_libdir}/pkgconfig/pygobject-3.0.pc
-%{_includedir}/pygobject-3.0
 
 
 %changelog
+* Tue Jan 18 2022 Odilon Sousa 3.42.0-1
+- Update to 3.42.0
+
 * Mon Sep 13 2021 Evgeni Golov - 3.40.1-1
 - Initial package.
