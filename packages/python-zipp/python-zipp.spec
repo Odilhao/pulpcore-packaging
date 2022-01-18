@@ -5,18 +5,28 @@
 %global pypi_name zipp
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        3.4.0
-Release:        3%{?dist}
+Version:        3.7.0
+Release:        1%{?dist}
 Summary:        Backport of pathlib-compatible object wrapper for zip files
 
-License:        MIT
+License:        None
 URL:            https://github.com/jaraco/zipp
 Source0:        https://files.pythonhosted.org/packages/source/z/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-func-timeout
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-jaraco-itertools
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-jaraco-packaging >= 8.2
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest >= 6
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-black >= 0.3.7
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-checkdocs >= 2.4
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-cov
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-enabler >= 1.0.1
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-flake8
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-mypy
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-rst-linker >= 1.9
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
-BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools-scm >= 3.4.1
 
 
 %description
@@ -26,6 +36,18 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools-scm >= 3.4.
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-func-timeout
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-jaraco-itertools
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-jaraco-packaging >= 8.2
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest >= 6
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-black >= 0.3.7
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-checkdocs >= 2.4
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-cov
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-enabler >= 1.0.1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-flake8
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-mypy
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-rst-linker >= 1.9
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-sphinx
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
@@ -38,9 +60,6 @@ set -ex
 %autosetup -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
-
-# Force setuptools_scm usage for older setuptools
-sed -i 's/setuptools.setup.*/setuptools.setup(use_scm_version=True)/' setup.py
 %{?scl:EOF}
 
 
@@ -63,10 +82,14 @@ set -ex
 %doc README.rst
 %{python3_sitelib}/__pycache__/%{pypi_name}.*
 %{python3_sitelib}/%{pypi_name}.py
+%{python3_sitelib}/%{pypi_name}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Tue Jan 18 2022 Odilon Sousa 3.7.0-1
+- Update to 3.7.0
+
 * Mon Sep 06 2021 Evgeni Golov - 3.4.0-3
 - Build against Python 3.8
 
