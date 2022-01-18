@@ -6,8 +6,8 @@
 %global srcname socks
 
 Name:           %{?scl_prefix}python-%{srcname}
-Version:        1.2.4
-Release:        2%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 Summary:        Core proxy (SOCKS4, SOCKS5, HTTP tunneling) functionality for Python
 
 License:        Apache 2
@@ -26,7 +26,10 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-anyio >= 3.3.4
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-async-timeout >= 3.0.1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-curio >= 1.4
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-trio >= 0.16.0
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
@@ -64,6 +67,9 @@ set -ex
 
 
 %changelog
+* Tue Jan 18 2022 Odilon Sousa 2.0.2-1
+- Update to 2.0.2
+
 * Mon Sep 06 2021 Evgeni Golov - 1.2.4-2
 - Build against Python 3.8
 
