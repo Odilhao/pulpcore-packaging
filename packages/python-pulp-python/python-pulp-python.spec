@@ -5,7 +5,7 @@
 %global pypi_name pulp-python
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        3.5.2
+Version:        3.6.0
 Release:        1%{?dist}
 Summary:        pulp-python plugin for the Pulp Project
 
@@ -15,6 +15,12 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-bandersnatch >= 5.0.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-packaging
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pkginfo
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.20
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.17.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pypi-simple
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
 
@@ -25,15 +31,14 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-bandersnatch = 4.4.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-bandersnatch >= 5.0.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-packaging
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-pkginfo
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.17
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.15
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.20
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.17.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pypi-simple
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
-Provides:       pulpcore-plugin(python) = %{version}
-Obsoletes:      python3-%{pypi_name} < %{version}-%{release}
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %{summary}
@@ -70,6 +75,9 @@ set -ex
 
 
 %changelog
+* Mon Feb 07 2022 Odilon Sousa 3.6.0-1
+- Update to 3.6.0
+
 * Tue Nov 16 2021 Odilon Sousa <osousa@redhat.com> - 3.5.2-1
 - Release python-pulp-python 3.5.2
 
