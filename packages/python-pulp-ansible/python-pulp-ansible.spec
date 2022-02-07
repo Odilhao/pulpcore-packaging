@@ -5,9 +5,8 @@
 %global pypi_name pulp-ansible
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        0.10.1
+Version:        0.12.0
 Release:        1%{?dist}
-Epoch:          1
 Summary:        Pulp plugin to manage Ansible content, e.g. roles
 
 License:        GPLv2+
@@ -16,6 +15,27 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-GitPython >= 3.1.24
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-PyYAML
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-aiofiles >= 0.8.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-async-lru >= 1.0
+Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-async-lru >= 1.1
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-coverage
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-dynaconf
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8-docstrings
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8-quotes
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8-tuple
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-galaxy-importer >= 0.4.1
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-jsonschema >= 3.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-mock
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-orionutils
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-packaging
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulp-smash
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.20
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.16
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-semantic-version
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
 
@@ -26,19 +46,29 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-GitPython >= 3.1.24
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-PyYAML
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-aiofiles >= 0.8.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-async-lru >= 1.0
 Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-async-lru >= 1.1
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-galaxy-importer >= 0.3.1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-coverage
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-dynaconf
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-flake8
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-flake8-docstrings
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-flake8-quotes
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-flake8-tuple
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-galaxy-importer >= 0.4.1
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-jsonschema >= 3.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-mock
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-orionutils
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-packaging
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.17
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.15.1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulp-smash
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.20
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.16
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-semantic-version
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
-Provides:       pulpcore-plugin(ansible) = %{version}
-Obsoletes:      python3-%{pypi_name} < %{epoch}:%{version}-%{release}
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %{summary}
@@ -75,6 +105,9 @@ set -ex
 
 
 %changelog
+* Mon Feb 07 2022 Odilon Sousa 0.12.0-1
+- Update to 0.12.0
+
 * Wed Oct 20 2021 Odilon Sousa <osousa@redhat.com> - 1:0.10.1-1
 - Release python-pulp-ansible 0.10.1
 
