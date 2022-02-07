@@ -5,7 +5,7 @@
 %global pypi_name pulp-container
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        2.9.0
+Version:        2.10.0
 Release:        1%{?dist}
 Summary:        Container plugin for the Pulp Project
 
@@ -15,7 +15,17 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-ecdsa >= 0.14
+Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-ecdsa >= 0.15
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.20
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.17.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyjwkest >= 1.4.0
+Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-pyjwkest >= 1.5
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyjwt >= 1.7.1
+Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-pyjwt >= 1.8
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-url-normalize >= 1.4.2
+Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-url-normalize >= 1.5
 
 
 %description
@@ -25,10 +35,10 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-ecdsa >= 0.13.2
-Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-ecdsa >= 0.14
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.17
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.15.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-ecdsa >= 0.14
+Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-ecdsa >= 0.15
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.20
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.17.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyjwkest >= 1.4.0
 Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-pyjwkest >= 1.5
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyjwt >= 1.7.1
@@ -37,8 +47,6 @@ Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-url-normalize >= 1.4.2
 Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-url-normalize >= 1.5
 
-Provides:       pulpcore-plugin(container) = %{version}
-Obsoletes:      python3-%{pypi_name} < %{version}-%{release}
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %{summary}
@@ -75,6 +83,9 @@ set -ex
 
 
 %changelog
+* Mon Feb 07 2022 Odilon Sousa 2.10.0-1
+- Update to 2.10.0
+
 * Tue Nov 16 2021 Odilon Sousa <osousa@redhat.com> - 2.9.0-1
 - Release python-pulp-container 2.9.0
 
