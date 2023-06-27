@@ -5,17 +5,21 @@
 %global pypi_name pulp-rpm-client
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        3.19.2
+Version:        3.22.0
 Release:        1%{?dist}
 Summary:        Pulp 3 API
 
 License:        GPLv2+
-URL:            https://pulpproject.org
+URL:
 Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/pulp_rpm-client-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-certifi
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-dateutil
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-six >= 1.10
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-urllib3 >= 1.15
 
 
 %description
@@ -60,13 +64,14 @@ set -ex
 
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %doc README.md
-%exclude %{python3_sitelib}/pulpcore/__pycache__/*
-%exclude %{python3_sitelib}/pulpcore/__init__.py
 %{python3_sitelib}/pulpcore
 %{python3_sitelib}/pulp_rpm_client-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Tue Jun 27 2023 Odilon Sousa 
+- Update to 3.22.0
+
 * Mon Mar 20 2023 Odilon Sousa <osousa@redhat.com> - 3.19.2-1
 - Release python-pulp-rpm-client 3.19.2
 
