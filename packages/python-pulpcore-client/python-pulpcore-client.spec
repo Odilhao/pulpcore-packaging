@@ -5,12 +5,12 @@
 %global pypi_name pulpcore-client
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        3.22.2
+Version:        3.28.0
 Release:        1%{?dist}
 Summary:        Pulp 3 API
 
 License:        GPLv2+
-URL:            https://pulpproject.org
+URL:
 Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
@@ -69,6 +69,9 @@ set -ex
 
 
 %changelog
+* Tue Jun 27 2023 Odilon Sousa 
+- Update to 3.28.0
+
 * Mon Feb 13 2023 Odilon Sousa <osousa@redhat.com> - 3.22.2-1
 - Release python-pulpcore-client 3.22.2
 
