@@ -1,12 +1,11 @@
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
-%{?python_disable_dependency_generator}
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name pulp-python
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        3.8.0
+Version:        3.10.0
 Release:        1%{?dist}
 Summary:        pulp-python plugin for the Pulp Project
 
@@ -16,6 +15,14 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-bandersnatch < 6.2
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-bandersnatch >= 6.1
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pkginfo < 1.9.7
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pkginfo >= 1.8.2
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.40
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.25.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pypi-simple < 1.0.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pypi-simple >= 0.9.0
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
 
@@ -26,23 +33,16 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-bandersnatch >= 5.0
-Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-bandersnatch >= 5.4
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-packaging >= 21.3
-Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-packaging >= 22.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-bandersnatch < 6.2
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-bandersnatch >= 6.1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pkginfo < 1.9.7
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-pkginfo >= 1.8.2
-Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-pkginfo >= 1.9
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.22
-Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-pulpcore > 3.25
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pypi-simple >= 0.9
-Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-pypi-simple >= 0.10
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.40
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.25.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pypi-simple < 1.0.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pypi-simple >= 0.9.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
-Provides:       pulpcore-plugin(python) = %{version}
-Obsoletes:      python3-%{pypi_name} < %{version}-%{release}
-%if 0%{?rhel} == 8
-Obsoletes:      python38-%{pypi_name} < %{version}-%{release}
-%endif
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %{summary}
@@ -79,6 +79,9 @@ set -ex
 
 
 %changelog
+* Tue Jun 27 2023 Odilon Sousa 3.10.0-1
+- Update to 3.10.0
+
 * Mon Feb 13 2023 Odilon Sousa <osousa@redhat.com> - 3.8.0-1
 - Release python-pulp-python 3.8.0
 
