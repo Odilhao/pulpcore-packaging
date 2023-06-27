@@ -1,12 +1,11 @@
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
-%{?python_disable_dependency_generator}
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name pulp-container
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        2.14.5
+Version:        2.15.0
 Release:        1%{?dist}
 Summary:        Container plugin for the Pulp Project
 
@@ -16,6 +15,16 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-ecdsa <= 0.18.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-ecdsa >= 0.14
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-jsonschema < 4.18
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-jsonschema >= 4.4
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.40
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.25.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pyjwkest <= 1.4.2
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pyjwkest >= 1.4
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pyjwt < 2.8
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pyjwt >= 2.4
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
 
@@ -26,23 +35,17 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-ecdsa <= 0.18.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-ecdsa >= 0.14
-Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-ecdsa >= 0.18.1
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.25
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.21.6
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyjwkest >= 1.4
-Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-pyjwkest >= 1.4.3
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyjwt >= 2.4
-Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-pyjwt >= 2.6
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-jsonschema < 4.18
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-jsonschema >= 4.4
-Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-jsonschema >= 4.18
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.40
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.25.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyjwkest <= 1.4.2
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyjwkest >= 1.4
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyjwt < 2.8
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyjwt >= 2.4
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
-
-Provides:       pulpcore-plugin(container) = %{version}
-Obsoletes:      python3-%{pypi_name} < %{version}-%{release}
-%if 0%{?rhel} == 8
-Obsoletes:      python38-%{pypi_name} < %{version}-%{release}
-%endif
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
@@ -80,6 +83,9 @@ set -ex
 
 
 %changelog
+* Tue Jun 27 2023 Odilon Sousa 2.15.0-1
+- Update to 2.15.0
+
 * Thu Apr 27 2023 Evgeni Golov - 2.14.5-1
 - Release python-pulp-container 2.14.5
 
