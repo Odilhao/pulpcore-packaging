@@ -5,7 +5,7 @@
 %global pypi_name bandersnatch
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        5.3.0
+Version:        6.1.0
 Release:        1%{?dist}
 Summary:        Mirroring tool that implements the client (mirror) side of PEP 381
 
@@ -15,7 +15,19 @@ Source0:        https://files.pythonhosted.org/packages/source/b/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-aiohttp
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-aiohttp-socks
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-aiohttp-xmlrpc
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-bandersnatch-safety-db
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-filelock
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-humanfriendly
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-keystoneauth1
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-openstackclient
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-packaging
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-s3path >= 0.3.3
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-swiftclient
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-uvloop
 
 
 %description
@@ -28,16 +40,18 @@ Summary:        %{summary}
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-aiohttp
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-aiohttp-socks
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-aiohttp-xmlrpc
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-bandersnatch-safety-db
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-filelock
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-humanfriendly
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-keystoneauth1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-openstackclient
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-packaging
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-s3path >= 0.3.3
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
-%if 0%{?!scl:1}
-Obsoletes:      python3-%{pypi_name} < %{version}-%{release}
-%endif
-%if 0%{?rhel} == 8
-Obsoletes:      python38-%{pypi_name} < %{version}-%{release}
-%endif
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-swiftclient
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-uvloop
+
+
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %{summary}
 
@@ -48,7 +62,6 @@ set -ex
 %autosetup -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
-sed -i '/setuptools/ s/>40.0.0//' setup.cfg
 %{?scl:EOF}
 
 
@@ -77,6 +90,9 @@ set -ex
 
 
 %changelog
+* Tue Jun 27 2023 Odilon Sousa 6.1.0-1
+- Update to 6.1.0
+
 * Tue Sep 20 2022 Odilon Sousa 5.3.0-1
 - Update to 5.3.0
 
