@@ -5,7 +5,7 @@
 %global pypi_name pulp-certguard
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        1.5.6
+Version:        1.6.5
 Release:        1%{?dist}
 Summary:        Certguard plugin for the Pulp Project
 
@@ -15,36 +15,27 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-PyOpenSSL < 23.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.40
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.14.9
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
 
 %description
-A Pulp plugin that provides an X.509 capable ContentGuard for pulpcore.
-Instances of X509CertGuard are useful for requiring clients to submit
-a certificate proving their entitlement to content before receiving the content.
+%{summary}
 
 
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyOpenSSL < 23.0
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.25
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.10
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-PyOpenSSL < 23.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore < 3.40
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pulpcore >= 3.14.9
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
-# this is a soft-dependency in certguard, but for Katello we always want it
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-rhsm
-
-Provides:       pulpcore-plugin(certguard) = %{version}
-Obsoletes:      python3-%{pypi_name} < %{version}-%{release}
-%if 0%{?rhel} == 8
-Obsoletes:      python38-%{pypi_name} < %{version}-%{release}
-%endif
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
-A Pulp plugin that provides an X.509 capable ContentGuard for pulpcore.
-Instances of X509CertGuard are useful for requiring clients to submit
-a certificate proving their entitlement to content before receiving the content.
+%{summary}
 
 
 %prep
@@ -78,6 +69,9 @@ set -ex
 
 
 %changelog
+* Tue Jun 27 2023 Odilon Sousa 1.6.5-1
+- Update to 1.6.5
+
 * Mon Feb 13 2023 Odilon Sousa <osousa@redhat.com> - 1.5.6-1
 - Release python-pulp-certguard 1.5.6
 
