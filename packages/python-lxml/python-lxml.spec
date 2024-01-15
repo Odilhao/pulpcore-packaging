@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name lxml
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        4.9.2
-Release:        4%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API
 
 License:        BSD-3-Clause
@@ -16,9 +17,11 @@ URL:            https://lxml.de/
 Source0:        https://files.pythonhosted.org/packages/source/l/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-BeautifulSoup4
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-Cython >= 3.0.7
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-cssselect >= 0.7
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-html5lib
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
-BuildRequires:  libxml2-devel
-BuildRequires:  libxslt-devel
 
 
 %description
@@ -28,6 +31,10 @@ BuildRequires:  libxslt-devel
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-BeautifulSoup4
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-Cython >= 3.0.7
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-cssselect >= 0.7
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-html5lib
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
@@ -40,8 +47,6 @@ set -ex
 %autosetup -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
-
-sed -i '/Cython/d' requirements.txt
 %{?scl:EOF}
 
 
@@ -60,13 +65,16 @@ set -ex
 
 
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
-%license LICENSES.txt doc/licenses/BSD.txt
+%license LICENSE.txt LICENSES.txt
 %doc README.rst src/lxml/isoschematron/resources/xsl/iso-schematron-xslt1/readme.txt
 %{python3_sitearch}/%{pypi_name}
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 5.1.0-1
+- Update to 5.1.0
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 4.9.2-4
 - Rollback overzealous obsoletes
 
