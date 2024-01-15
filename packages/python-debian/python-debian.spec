@@ -1,15 +1,16 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{srcname}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name python-debian
 %global srcname debian
 
 Name:           %{?scl_prefix}python-%{srcname}
-Version:        0.1.44
-Release:        6%{?dist}
+Version:        0.1.49
+Release:        1%{?dist}
 Summary:        Debian package related modules
 
 License:        GPL-2+
@@ -18,6 +19,7 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-chardet
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
 
@@ -29,7 +31,6 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-chardet
-Requires:       zstd
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
@@ -69,6 +70,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 0.1.49-1
+- Update to 0.1.49
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 0.1.44-6
 - Rollback overzealous obsoletes
 
