@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name cffi
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        1.15.1
-Release:        4%{?dist}
+Version:        1.16.0
+Release:        1%{?dist}
 Summary:        Foreign Function Interface for Python calling C code
 
 License:        MIT
@@ -18,8 +19,7 @@ Source0:        https://files.pythonhosted.org/packages/source/c/%{pypi_name}/%{
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pycparser
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
-BuildRequires:  libffi-devel
-BuildRequires:  gcc
+
 
 %description
 %{summary}
@@ -63,11 +63,13 @@ set -ex
 %license LICENSE
 %doc README.md
 %{python3_sitearch}/%{pypi_name}
-%{python3_sitearch}/_cffi_backend.cpython-3*-x86_64-linux-gnu.so
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 1.16.0-1
+- Update to 1.16.0
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 1.15.1-4
 - Rollback overzealous obsoletes
 
