@@ -1,15 +1,16 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{srcname}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name Django
 %global srcname django
 
 Name:           %{?scl_prefix}python-%{srcname}
-Version:        4.2.2
-Release:        3%{?dist}
+Version:        4.2.9
+Release:        1%{?dist}
 Summary:        A high-level Python web framework that encourages rapid development and clean, pragmatic design
 
 License:        BSD-3-Clause
@@ -18,7 +19,14 @@ Source0:        https://files.pythonhosted.org/packages/source/D/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-argon2-cffi >= 19.1.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-asgiref < 4
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-asgiref >= 3.6.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-backports-zoneinfo
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-bcrypt
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-sqlparse >= 0.3.1
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-tzdata
 
 
 %description
@@ -28,17 +36,14 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-argon2-cffi >= 19.1.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-asgiref < 4
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-asgiref >= 3.3.2
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytz
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-sqlparse >= 0.2.2
-%if 0%{?!scl:1}
-Obsoletes:      python3-%{srcname} < %{version}-%{release}
-%endif
-%if 0%{?rhel} == 8
-Obsoletes:      python38-%{srcname} < %{version}-%{release}
-Obsoletes:      python39-%{srcname} < %{version}-%{release}
-%endif
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-asgiref >= 3.6.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-backports-zoneinfo
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-bcrypt
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-sqlparse >= 0.3.1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-tzdata
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
@@ -51,13 +56,6 @@ set -ex
 %autosetup -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
-
-# hard-code python3 in django-admin
-pushd django
-for file in conf/project_template/manage.py-tpl ; do
-    sed -i "s/\/env python/\/python3/" $file ;
-done
-popd
 %{?scl:EOF}
 
 
@@ -84,6 +82,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 4.2.9-1
+- Update to 4.2.9
+
 * Tue Nov 21 2023 Patrick Creech <pcreech@redhat.com> - 4.2.2-3
 - Add python39 obsoletes to package
 
