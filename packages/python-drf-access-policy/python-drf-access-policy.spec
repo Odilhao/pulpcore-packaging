@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name drf-access-policy
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        1.3.0
-Release:        3%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Declarative access policies/permissions modeled after AWS' IAM policies
 
 License:        MIT
@@ -30,11 +31,6 @@ Summary:        %{summary}
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-djangorestframework
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyparsing
 
-Obsoletes:      python3-%{pypi_name} < %{version}-%{release}
-
-%if 0%{?rhel} == 8
-Obsoletes:      python39-%{pypi_name} < %{version}-%{release}
-%endif
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %{summary}
@@ -71,6 +67,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 1.5.0-1
+- Update to 1.5.0
+
 * Fri Nov 17 2023 Odilon Sousa <osousa@redhat.com> - 1.3.0-3
 - Obsolete python39 packages for a smooth upgrade
 
