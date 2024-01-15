@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name psycopg
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        3.1.9
-Release:        4%{?dist}
+Version:        3.1.12
+Release:        1%{?dist}
 Summary:        PostgreSQL database adapter for Python
 
 License:        GNU Lesser General Public License v3 (LGPLv3)
@@ -17,7 +18,12 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-black >= 23.1.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-dnspython >= 2.1
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8 >= 4.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-mypy >= 1.4.1
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-types-setuptools >= 57.4
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-wheel >= 0.37
 
 
@@ -28,7 +34,23 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-wheel >= 0.37
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-Sphinx >= 5.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-anyio < 4.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-anyio >= 3.6.2
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-backports-zoneinfo >= 0.2.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-furo = 2022.6.21
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-mypy >= 1.4.1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pproxy >= 2.7
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-psycopg-binary = 3.1.12
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-psycopg-c = 3.1.12
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-psycopg-pool
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest >= 6.2.5
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-cov >= 3.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-randomly >= 3.5
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-sphinx-autobuild >= 2021.3.14
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-sphinx-autodoc-typehints >= 1.12
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-typing-extensions >= 4.1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-tzdata
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
@@ -66,6 +88,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 3.1.12-1
+- Update to 3.1.12
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 3.1.9-4
 - Rollback overzealous obsoletes
 
