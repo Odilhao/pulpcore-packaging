@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name pycares
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        4.1.2
-Release:        5%{?dist}
+Version:        4.4.0
+Release:        1%{?dist}
 Summary:        Python interface for c-ares
 
 License:        MIT
@@ -17,6 +18,7 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-cffi >= 1.5.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-idna >= 2.1
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
 
@@ -60,12 +62,15 @@ set -ex
 
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %license LICENSE deps/c-ares/LICENSE.md
-%doc PYPIREADME.rst README.rst deps/c-ares/README.cares deps/c-ares/README.md deps/c-ares/README.msvc deps/c-ares/test/README.md
+%doc PYPIREADME.rst README.rst deps/c-ares/README.cares deps/c-ares/README.md deps/c-ares/README.msvc deps/c-ares/test/README.md deps/c-ares/test/gmock-1.11.0/README.md
 %{python3_sitearch}/%{pypi_name}
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 4.4.0-1
+- Update to 4.4.0
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 4.1.2-5
 - Rollback overzealous obsoletes
 
