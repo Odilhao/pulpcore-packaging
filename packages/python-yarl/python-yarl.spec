@@ -1,22 +1,26 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name yarl
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        1.8.2
-Release:        4%{?dist}
+Version:        1.9.2
+Release:        1%{?dist}
 Summary:        Yet another URL library
 
-License:        Apache 2
+License:        Apache-2.0
 URL:            https://github.com/aio-libs/yarl/
 Source0:        https://files.pythonhosted.org/packages/source/y/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-idna >= 2.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-multidict >= 4.0
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-typing-extensions >= 3.7.4
 
 
 %description
@@ -66,6 +70,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 1.9.2-1
+- Update to 1.9.2
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 1.8.2-4
 - Rollback overzealous obsoletes
 
