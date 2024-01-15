@@ -1,18 +1,19 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name flake8
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        5.0.0
-Release:        2%{?dist}
+Version:        6.1.0
+Release:        1%{?dist}
 Summary:        the modular source code checker: pep8 pyflakes and co
 
 License:        MIT
-URL:            https://gitlab.com/pycqa/flake8
+URL:            https://github.com/pycqa/flake8
 Source0:        https://files.pythonhosted.org/packages/source/f/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
@@ -27,20 +28,13 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-importlib-metadata
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-mccabe < 0.8.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-mccabe >= 0.7.0
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pycodestyle < 2.10.0
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pycodestyle >= 2.9.0
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyflakes < 2.6.0
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyflakes >= 2.5.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pycodestyle < 2.12.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pycodestyle >= 2.11.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyflakes < 3.2.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pyflakes >= 3.1.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
-
-Obsoletes:      python3-%{pypi_name} < %{version}-%{release}
-
-%if 0%{?rhel} == 8
-Obsoletes:      python39-%{pypi_name} < %{version}-%{release}
-%endif
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
@@ -72,13 +66,16 @@ set -ex
 
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %license LICENSE
-%doc README.rst tests/fixtures/config_files/README.rst
+%doc README.rst
 %{_bindir}/flake8
 %{python3_sitelib}/%{pypi_name}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 6.1.0-1
+- Update to 6.1.0
+
 * Mon Nov 20 2023 Patrick Creech <pcreech@redhat.com> - 5.0.0-2
 - Fix requires for flake8 5.0.0
 
