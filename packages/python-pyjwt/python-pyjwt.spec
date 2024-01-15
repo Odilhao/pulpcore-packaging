@@ -1,15 +1,16 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{srcname}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name PyJWT
 %global srcname pyjwt
 
 Name:           %{?scl_prefix}python-%{srcname}
-Version:        2.5.0
-Release:        4%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        JSON Web Token implementation in Python
 
 License:        MIT
@@ -18,7 +19,20 @@ Source0:        https://files.pythonhosted.org/packages/source/P/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-coverage = 5.0.4
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-coverage = 5.0.4
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-cryptography >= 3.4.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-cryptography >= 3.4.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pre-commit
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest < 7.0.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest < 7.0.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest >= 6.0.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest >= 6.0.0
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-typing-extensions
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-zope-interface
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-zope-interface
+
 
 %description
 %{summary}
@@ -27,14 +41,16 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-Provides:       %{?scl_prefix}python%{python3_pkgversion}-jwt = %{version}-%{release}
-Obsoletes:      %{?scl_prefix}python%{python3_pkgversion}-jwt < %{version}-%{release}
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-cryptography >= 3.3.1
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-types-cryptography >= 3.3.21
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
-%if 0%{?rhel} == 8
-Obsoletes:      python39-%{srcname} < %{version}-%{release}
-%endif
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-coverage = 5.0.4
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-cryptography >= 3.4.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest < 7.0.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest >= 6.0.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-sphinx < 5.0.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-sphinx >= 4.5.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-sphinx-rtd-theme
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-typing-extensions
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-zope-interface
+
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 %{summary}
@@ -66,12 +82,14 @@ set -ex
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 %license LICENSE
 %doc README.rst
-%exclude %{_bindir}/pyjwt
 %{python3_sitelib}/jwt
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 2.8.0-1
+- Update to 2.8.0
+
 * Tue Nov 21 2023 Patrick Creech <pcreech@redhat.com> - 2.5.0-4
 - Add python39 obsoletes to package
 
