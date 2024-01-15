@@ -1,14 +1,15 @@
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
-%global __python3 /usr/bin/python3.11
+
 %global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name pulp-glue
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        0.21.2
-Release:        3%{?dist}
+Version:        0.21.4
+Release:        1%{?dist}
 Summary:        Version agnostic glue library to talk to pulpcore's REST API
 
 License:        GPLv2+
@@ -31,13 +32,7 @@ Requires:       %{?scl_prefix}python%{python3_pkgversion}-packaging < 24
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-packaging >= 20.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-requests < 2.32
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-requests >= 2.24.0
-Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-requests >= 2.32
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
-Obsoletes:      python3-%{pypi_name} < %{version}-%{release}
-%if 0%{?rhel} == 8
-Obsoletes:      python39-%{pypi_name} < %{version}-%{release}
-%endif
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %{summary}
@@ -73,6 +68,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 0.21.4-1
+- Update to 0.21.4
+
 * Fri Nov 17 2023 Odilon Sousa <osousa@redhat.com> - 0.21.2-3
 - Obsolete python39 packages for a smooth upgrade
 
