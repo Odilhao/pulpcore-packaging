@@ -1,27 +1,25 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{srcname}}
 %{!?scl:%global pkg_name %{name}}
 
-%global debug_package %{nil}
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
+
 # Created by pyp2rpm-3.3.3
 %global pypi_name PyYAML
 %global srcname pyyaml
 
 Name:           %{?scl_prefix}python-%{srcname}
-Version:        5.4.1
-Release:        7%{?dist}
+Version:        6.0.1
+Release:        1%{?dist}
 Summary:        YAML parser and emitter for Python
 
 License:        MIT
 URL:            https://pyyaml.org/
 Source0:        https://files.pythonhosted.org/packages/source/P/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
-
-BuildRequires:  gcc
-BuildRequires:  libyaml-devel
 
 
 %description
@@ -31,10 +29,6 @@ BuildRequires:  libyaml-devel
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-Provides:       %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name} = %{version}-%{release}
-%{?python_provide:%python_provide python%{python3_pkgversion}-yaml}
-Provides:       %{?scl_prefix}python%{python3_pkgversion}-yaml = %{version}-%{release}
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
@@ -66,12 +60,16 @@ set -ex
 
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 %license LICENSE
-%{python3_sitearch}/_yaml
-%{python3_sitearch}/yaml
-%{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%doc README.md
+%{python3_sitelib}/_yaml
+%{python3_sitelib}/yaml
+%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 6.0.1-1
+- Update to 6.0.1
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 5.4.1-7
 - Rollback overzealous obsoletes
 
