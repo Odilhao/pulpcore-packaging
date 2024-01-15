@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
 
-# Created by pyp2rpm-3.3.8
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
+
+# Created by pyp2rpm-3.3.3
 %global pypi_name pathspec
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        0.11.1
-Release:        4%{?dist}
+Version:        0.12.1
+Release:        1%{?dist}
 Summary:        Utility library for gitignore style pattern matching of file paths
 
 License:        MPL 2.0
@@ -18,7 +19,7 @@ BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
-BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools >= 40.8
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools >= 40.8.0
 
 
 %description
@@ -57,12 +58,15 @@ set -ex
 
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %license LICENSE
-%doc README.rst
+%doc README-dist.rst README.rst doc/source/readme.rst
 %{python3_sitelib}/%{pypi_name}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 0.12.1-1
+- Update to 0.12.1
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 0.11.1-4
 - Rollback overzealous obsoletes
 
