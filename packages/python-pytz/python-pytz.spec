@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name pytz
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        2022.2.1
-Release:        5%{?dist}
+Version:        2023.3.post1
+Release:        1%{?dist}
 Summary:        World timezone definitions, modern and historical
 
 License:        MIT
@@ -64,6 +65,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 2023.3.post1-1
+- Update to 2023.3.post1
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 2022.2.1-5
 - Rollback overzealous obsoletes
 
