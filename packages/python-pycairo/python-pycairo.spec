@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name pycairo
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        1.20.1
-Release:        6%{?dist}
+Version:        1.25.1
+Release:        1%{?dist}
 Summary:        Python interface for cairo
 
 License:        LGPL-2.1-only OR MPL-1.1
@@ -18,7 +19,6 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
-BuildRequires:  cairo-devel
 
 %description
 %{summary}
@@ -31,16 +31,6 @@ Summary:        %{summary}
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %{summary}
-
-
-%package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}-devel
-Summary:        %{summary} - devel
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}%{?_isa} = %{version}-%{release}
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-devel
-
-%description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}-devel
-This package contains files required to build wrappers for cairo add-on
-libraries so that they interoperate with py3cairo.
 
 
 %prep
@@ -73,12 +63,10 @@ set -ex
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
-%files -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}-devel
-%{_libdir}/pkgconfig/py3cairo.pc
-%{_includedir}/pycairo
-
-
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 1.25.1-1
+- Update to 1.25.1
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 1.20.1-6
 - Rollback overzealous obsoletes
 
