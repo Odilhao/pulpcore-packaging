@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name gitdb
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        4.0.10
-Release:        4%{?dist}
+Version:        4.0.11
+Release:        1%{?dist}
 Summary:        Git Object Database
 
 License:        BSD License
@@ -18,6 +19,9 @@ BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-smmap < 6
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-smmap >= 3.0.1
+
 
 %description
 %{summary}
@@ -65,6 +69,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 4.0.11-1
+- Update to 4.0.11
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 4.0.10-4
 - Rollback overzealous obsoletes
 
