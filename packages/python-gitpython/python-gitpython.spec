@@ -1,18 +1,19 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{srcname}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name GitPython
 %global srcname gitpython
 
 Name:           %{?scl_prefix}python-%{srcname}
-Version:        3.1.40
-Release:        2%{?dist}
-Summary:        GitPython is a python library used to interact with Git repositories
+Version:        3.1.41
+Release:        1%{?dist}
+Summary:        GitPython is a Python library used to interact with Git repositories
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/gitpython-developers/GitPython
 Source0:        https://files.pythonhosted.org/packages/source/G/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -28,9 +29,21 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-Requires:       git-core
+Conflicts:      %{?scl_prefix}python%{python3_pkgversion}-ddt = 1.4.3
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-black
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-coverage
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-ddt >= 1.1.1
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-gitdb < 5
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-gitdb >= 4.0.1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-mock
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-mypy
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pre-commit
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest >= 7.3.1
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-cov
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-instafail
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-mock
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-sugar
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-sumtypes
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-typing-extensions >= 3.7.4.3
 
 
@@ -69,6 +82,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 3.1.41-1
+- Update to 3.1.41
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 3.1.40-2
 - Rollback overzealous obsoletes
 
