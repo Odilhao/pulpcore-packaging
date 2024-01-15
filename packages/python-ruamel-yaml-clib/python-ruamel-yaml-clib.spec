@@ -1,15 +1,16 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{srcname}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name ruamel.yaml.clib
 %global srcname ruamel-yaml-clib
 
 Name:           %{?scl_prefix}python-%{srcname}
-Version:        0.2.7
-Release:        4%{?dist}
+Version:        0.2.8
+Release:        1%{?dist}
 Summary:        C version of reader, parser and emitter for ruamel
 
 License:        MIT
@@ -18,8 +19,6 @@ Source0:        https://files.pythonhosted.org/packages/source/r/%{pypi_name}/%{
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
-BuildRequires:  gcc
-BuildRequires:  libyaml-devel
 
 
 %description
@@ -54,7 +53,7 @@ set -ex
 %install
 %{?scl:scl enable %{scl} - << \EOF}
 set -ex
-%{__python3} setup.py install --single-version-externally-managed --skip-build --root $RPM_BUILD_ROOT --install-purelib %{python3_sitelib} --install-platlib %{python3_sitearch} --install-scripts %{_bindir} --install-data %{_datadir}
+%py3_install
 %{?scl:EOF}
 
 
@@ -62,11 +61,14 @@ set -ex
 %license LICENSE
 %doc README.rst
 %{python3_sitearch}/ruamel
-%{python3_sitearch}/_ruamel_yaml.cpython-3*-x86_64-linux-gnu.so
+%{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}-*.pth
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 0.2.8-1
+- Update to 0.2.8
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 0.2.7-4
 - Rollback overzealous obsoletes
 
