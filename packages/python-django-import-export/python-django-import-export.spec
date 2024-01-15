@@ -1,15 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
-%{?python_disable_dependency_generator}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name django-import-export
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        3.1.0
-Release:        3%{?dist}
+Version:        3.3.6
+Release:        1%{?dist}
 Summary:        Django application and library for importing and exporting data with included admin integration
 
 License:        BSD License
@@ -28,15 +28,9 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-django >= 3.2
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-Django >= 3.2
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-diff-match-patch
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-tablib >= 3.2.1
-
-Obsoletes:      python3-%{pypi_name} < %{version}-%{release}
-
-%if 0%{?rhel} == 8
-Obsoletes:      python39-%{pypi_name} < %{version}-%{release}
-%endif
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-tablib = 3.5.0
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
@@ -74,6 +68,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 3.3.6-1
+- Update to 3.3.6
+
 * Fri Nov 17 2023 Odilon Sousa <osousa@redhat.com> - 3.1.0-3
 - Obsolete python39 packages for a smooth upgrade
 
