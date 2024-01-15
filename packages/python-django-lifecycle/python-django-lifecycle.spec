@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name django-lifecycle
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        1.0.0
-Release:        3%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        Declarative model lifecycle hooks
 
 License:        MIT
@@ -27,15 +28,9 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-urlman >= 1.2.0
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-django >= 2.0
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-Django >= 2.0
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-packaging >= 21.0
-
-Obsoletes:      python3-%{pypi_name} < %{version}-%{release}
-
-%if 0%{?rhel} == 8
-Obsoletes:      python39-%{pypi_name} < %{version}-%{release}
-%endif
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-urlman >= 1.2.0
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
@@ -73,6 +68,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 1.0.2-1
+- Update to 1.0.2
+
 * Fri Nov 17 2023 Odilon Sousa <osousa@redhat.com> - 1.0.0-3
 - Obsolete python39 packages for a smooth upgrade
 
