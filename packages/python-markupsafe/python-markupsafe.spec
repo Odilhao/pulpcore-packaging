@@ -1,23 +1,16 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{srcname}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name MarkupSafe
 %global srcname markupsafe
 
-# Our EL8 buildroots default to Python 3.8, but let's also build 3.6, just to be safe
-# to make dnf happy
-%if 0%{?rhel} == 8
-%bcond_without python39
-%else
-%bcond_with python3
-%endif
-
 Name:           %{?scl_prefix}python-%{srcname}
-Version:        2.1.2
-Release:        4%{?dist}
+Version:        2.1.3
+Release:        1%{?dist}
 Summary:        Safely add untrusted strings to HTML/XML markup
 
 License:        BSD-3-Clause
@@ -40,15 +33,6 @@ Summary:        %{summary}
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 %{summary}
 
-%if %{with python36}
-%package -n python3-%{srcname}
-Summary:        %{summary}
-BuildRequires:  python36-devel
-Provides:       python36-%{srcname} = %{version}-%{release}
-
-%description -n python3-%{srcname}
-%{summary}
-%endif
 
 %prep
 %{?scl:scl enable %{scl} - << \EOF}
@@ -65,22 +49,12 @@ set -ex
 %py3_build
 %{?scl:EOF}
 
-%if %{with python36}
-CFLAGS="${CFLAGS:-${RPM_OPT_FLAGS}}" LDFLAGS="${LDFLAGS:-${RPM_LD_FLAGS}}"\
- /usr/bin/python3.6 setup.py  build --executable="/usr/bin/python3.6 -s"
-%endif
-
 
 %install
 %{?scl:scl enable %{scl} - << \EOF}
 set -ex
 %py3_install
 %{?scl:EOF}
-
-%if %{with python36}
-CFLAGS="${CFLAGS:-${RPM_OPT_FLAGS}}" LDFLAGS="${LDFLAGS:-${RPM_LD_FLAGS}}"\
- /usr/bin/python3.6 setup.py  install --skip-build --root %{buildroot}
-%endif
 
 
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
@@ -89,13 +63,11 @@ CFLAGS="${CFLAGS:-${RPM_OPT_FLAGS}}" LDFLAGS="${LDFLAGS:-${RPM_LD_FLAGS}}"\
 %{python3_sitearch}/markupsafe
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
-%if %{with python36}
-%files -n python3-%{srcname}
-/usr/lib64/python3.6/site-packages/markupsafe
-/usr/lib64/python3.6/site-packages/%{pypi_name}-%{version}-py*.egg-info
-%endif
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 2.1.3-1
+- Update to 2.1.3
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 2.1.2-4
 - Rollback overzealous obsoletes
 
