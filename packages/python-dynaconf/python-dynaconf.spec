@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name dynaconf
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        3.1.12
-Release:        3%{?dist}
+Version:        3.2.3
+Release:        1%{?dist}
 Summary:        The dynamic configurator for your Python Project
 
 License:        MIT
@@ -17,7 +18,52 @@ Source0:        https://files.pythonhosted.org/packages/source/d/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-configobj
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-configobj
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-configobj
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-configobj
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-configobj
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-django
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-django
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-dotenv
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-dotenv
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8-debugger
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8-debugger
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8-print
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8-print
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8-todo
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flake8-todo
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flask >= 0.12
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-flask >= 0.12
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-hvac
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-hvac
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-hvac
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-hvac
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pep8-naming
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pep8-naming
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-cov
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-cov
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-mock
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-mock
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-xdist
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-pytest-xdist
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-radon
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-radon
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-redis
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-redis
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-redis
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-redis
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-ruamel-yaml
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-ruamel-yaml
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools >= 38.6.0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-toml
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-toml
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-toml
 
 
 %description
@@ -27,13 +73,35 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools >= 38.6.0
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-configobj
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-configobj
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-configobj
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-configobj
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-django
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-dotenv
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-flake8
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-flake8-debugger
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-flake8-print
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-flake8-todo
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-flask >= 0.12
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-hvac
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-hvac
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-hvac
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pep8-naming
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-cov
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-mock
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-pytest-xdist
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-radon
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-redis
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-redis
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-redis
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-ruamel-yaml
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-ruamel-yaml
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-toml
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-toml
 
-Obsoletes:      python3-%{pypi_name} < %{version}-%{release}
-
-%if 0%{?rhel} == 8
-Obsoletes:      python39-%{pypi_name} < %{version}-%{release}
-%endif
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %{summary}
@@ -63,7 +131,7 @@ set -ex
 
 
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
-%license LICENSE
+%license LICENSE vendor_licenses/box-LICENSE.txt vendor_licenses/click-LICENSE.rst vendor_licenses/licenses.sh vendor_licenses/python-dotenv-LICENSE.txt vendor_licenses/ruamel.yaml-LICENSE.txt vendor_licenses/toml-LICENSE.txt vendor_licenses/tomli-LICENSE.txt
 %doc README.md
 %{_bindir}/dynaconf
 %{python3_sitelib}/%{pypi_name}
@@ -71,6 +139,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 3.2.3-1
+- Update to 3.2.3
+
 * Fri Nov 17 2023 Odilon Sousa <osousa@redhat.com> - 3.1.12-3
 - Obsolete python39 packages for a smooth upgrade
 
