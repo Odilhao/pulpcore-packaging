@@ -1,15 +1,16 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{srcname}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name ruamel.yaml
 %global srcname ruamel-yaml
 
 Name:           %{?scl_prefix}python-%{srcname}
-Version:        0.17.21
-Release:        5%{?dist}
+Version:        0.17.40
+Release:        1%{?dist}
 Summary:        ruamel.yaml is a YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order
 
 License:        MIT license
@@ -19,8 +20,7 @@ BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
-BuildRequires:  gcc
-BuildRequires:  libyaml-devel
+
 
 %description
 %{summary}
@@ -29,7 +29,10 @@ BuildRequires:  libyaml-devel
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-Requires:       %{?scl_prefix}python%{python3_pkgversion}-ruamel-yaml-clib >= 0.2.6
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-mercurial > 5.7
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-ruamel-yaml-clib >= 0.2.7
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-ruamel-yaml-jinja2 >= 0.2
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-ryd
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
@@ -55,19 +58,22 @@ set -ex
 %install
 %{?scl:scl enable %{scl} - << \EOF}
 set -ex
-%{__python3} setup.py install --single-version-externally-managed --skip-build --root $RPM_BUILD_ROOT --install-purelib %{python3_sitelib} --install-platlib %{python3_sitearch} --install-scripts %{_bindir} --install-data %{_datadir}
+%py3_install
 %{?scl:EOF}
 
 
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{srcname}
 %license LICENSE
-%doc README.rst
+%doc README.md
 %{python3_sitelib}/ruamel
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}-nspkg.pth
+%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}-*.pth
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 0.17.40-1
+- Update to 0.17.40
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 0.17.21-5
 - Rollback overzealous obsoletes
 
