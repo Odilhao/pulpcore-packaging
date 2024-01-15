@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name click
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        8.1.3
-Release:        4%{?dist}
+Version:        8.1.7
+Release:        1%{?dist}
 Summary:        Composable command line interface toolkit
 
 License:        BSD-3-Clause
@@ -17,6 +18,8 @@ Source0:        https://files.pythonhosted.org/packages/source/c/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-devel
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-colorama
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-importlib-metadata
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
 
@@ -27,6 +30,8 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-colorama
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-importlib-metadata
 
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
@@ -64,6 +69,9 @@ set -ex
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 8.1.7-1
+- Update to 8.1.7
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 8.1.3-4
 - Rollback overzealous obsoletes
 
