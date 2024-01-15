@@ -1,14 +1,15 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name googleapis-common-protos
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        1.59.1
-Release:        4%{?dist}
+Version:        1.62.0
+Release:        1%{?dist}
 Summary:        Common protobufs used in Google APIs
 
 License:        Apache-2.0
@@ -24,6 +25,8 @@ BuildConflicts: %{?scl_prefix}python%{python3_pkgversion}-protobuf = 4.21.2
 BuildConflicts: %{?scl_prefix}python%{python3_pkgversion}-protobuf = 4.21.3
 BuildConflicts: %{?scl_prefix}python%{python3_pkgversion}-protobuf = 4.21.4
 BuildConflicts: %{?scl_prefix}python%{python3_pkgversion}-protobuf = 4.21.5
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-grpcio < 2.0.0.dev0
+BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-grpcio >= 1.44.0
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-protobuf < 5.0.0.dev0
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-protobuf >= 3.19.5
 BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
@@ -81,10 +84,12 @@ set -ex
 %doc README.rst
 %{python3_sitelib}/google
 %{python3_sitelib}/googleapis_common_protos-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/googleapis_common_protos-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 1.62.0-1
+- Update to 1.62.0
+
 * Tue Dec 12 2023 Patrick Creech <pcreech@redhat.com> - 1.59.1-4
 - Rollback overzealous obsoletes
 
