@@ -1,17 +1,18 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name pycodestyle
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        2.9.1
-Release:        2%{?dist}
+Version:        2.11.1
+Release:        1%{?dist}
 Summary:        Python style guide checker
 
-License:        Expat license
+License:        MIT
 URL:            https://pycodestyle.pycqa.org/
 Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -29,9 +30,6 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
 
-%if 0%{?rhel} == 8
-Obsoletes:      python39-%{pypi_name} < %{version}-%{release}
-%endif
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %{summary}
@@ -63,13 +61,17 @@ set -ex
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %license LICENSE
 %doc README.rst
-%exclude %{_bindir}/pycodestyle
+%{_bindir}/pycodestyle
 %{python3_sitelib}/__pycache__/%{pypi_name}.*
 %{python3_sitelib}/%{pypi_name}.py
+%{python3_sitelib}/%{pypi_name}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 2.11.1-1
+- Update to 2.11.1
+
 * Tue Nov 21 2023 Patrick Creech <pcreech@redhat.com> - 2.9.1-2
 - Add python39 obsoletes to package
 
