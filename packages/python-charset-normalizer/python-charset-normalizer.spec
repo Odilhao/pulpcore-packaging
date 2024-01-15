@@ -1,18 +1,19 @@
-%global python3_pkgversion 3.11
-%global __python3 /usr/bin/python3.11
 %{?scl:%scl_package python-%{pypi_name}}
 %{!?scl:%global pkg_name %{name}}
+
+%global python3_pkgversion 3.11
+%global __python3 /usr/bin/python3.11
 
 # Created by pyp2rpm-3.3.3
 %global pypi_name charset-normalizer
 
 Name:           %{?scl_prefix}python-%{pypi_name}
-Version:        2.1.1
-Release:        4%{?dist}
+Version:        3.3.2
+Release:        1%{?dist}
 Summary:        The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet
 
 License:        MIT
-URL:            https://github.com/ousret/charset_normalizer
+URL:            https://github.com/Ousret/charset_normalizer
 Source0:        https://files.pythonhosted.org/packages/source/c/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
@@ -27,6 +28,8 @@ BuildRequires:  %{?scl_prefix}python%{python3_pkgversion}-setuptools
 %package -n     %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+Requires:       %{?scl_prefix}python%{python3_pkgversion}-setuptools
+
 
 %description -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %{summary}
@@ -58,12 +61,15 @@ set -ex
 %files -n %{?scl_prefix}python%{python3_pkgversion}-%{pypi_name}
 %license LICENSE
 %doc README.md
-%exclude %{_bindir}/normalizer
+%{_bindir}/normalizer
 %{python3_sitelib}/charset_normalizer
 %{python3_sitelib}/charset_normalizer-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Mon Jan 15 2024 root <root@localhost> 3.3.2-1
+- Update to 3.3.2
+
 * Thu Dec 14 2023 Odilon Sousa <osousa@redhat.com> - 2.1.1-4
 - Dont obsolete python-charset-normalizer
 
