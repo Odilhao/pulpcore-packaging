@@ -1,0 +1,18 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Adding new Package
+globs:
+alwaysApply: false
+---
+
+- To add new packages it must follow https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/
+- Use packages/python-build/python-build.spec Specfile as template, specially the macros and build definitions
+- The changelog should follow packages/python-build/python-build.spec#L71C1-L72C19 structure, respecting the SEMVER of the added library
+- Always add the package to package_manifest.yml respecting the structure already defined.
+- Always add the package to comps/omps-pulpcore-el9.xml following the codestyle of the files.
+- New packages need to run `obal source python-<package-name> to ensure that the tar.gz can be fetched
+- The new package should never be added to the rpm/develop branch, it should always be done in a new branch
